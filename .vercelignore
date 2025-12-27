@@ -1,0 +1,2 @@
+# Ignore vercel build cache
+.vercel
