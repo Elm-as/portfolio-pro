@@ -13,6 +13,7 @@ interface Project {
   result: string
   link?: string
   status?: string
+  period?: string
 }
 
 interface ProjectsDict {
@@ -65,9 +66,16 @@ export default function ProjectsClient({ dict, lang }: ProjectsClientProps) {
                 className="p-8 rounded-2xl border bg-card hover:shadow-2xl transition-all"
               >
                 <div className="flex items-start justify-between mb-6">
-                  <h2 className="text-3xl font-display font-bold">
-                    {project.title}
-                  </h2>
+                  <div>
+                    <h2 className="text-3xl font-display font-bold">
+                      {project.title}
+                    </h2>
+                    {project.period && (
+                      <p className="text-sm text-muted-foreground mt-1">
+                        {project.period}
+                      </p>
+                    )}
+                  </div>
                   <div className="flex items-center gap-3">
                     {project.status && (
                       <span className="px-3 py-1 text-sm font-medium rounded-full bg-blue-100 text-blue-700 whitespace-nowrap">
