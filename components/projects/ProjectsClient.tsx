@@ -3,8 +3,30 @@
 import { motion } from 'framer-motion'
 import { Lightbulb, AlertCircle, Wrench, TrendingUp, CheckCircle, ExternalLink } from 'lucide-react'
 
+interface Project {
+  title: string
+  context: string
+  problem: string
+  solution: string
+  tools: string[]
+  method: string
+  result: string
+  link?: string
+  status?: string
+}
+
+interface ProjectsDict {
+  hero: {
+    title: string
+    subtitle: string
+  }
+  list: Project[]
+}
+
 interface ProjectsClientProps {
-  dict: any
+  dict: {
+    projects: ProjectsDict
+  }
   lang: string
 }
 
@@ -33,7 +55,7 @@ export default function ProjectsClient({ dict, lang }: ProjectsClientProps) {
       <section className="py-20 bg-background">
         <div className="container-custom">
           <div className="space-y-12">
-            {dict.projects.list.map((project: any, index: number) => (
+            {dict.projects.list.map((project: Project, index: number) => (
               <motion.div
                 key={project.title}
                 initial={{ opacity: 0, y: 20 }}

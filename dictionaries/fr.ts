@@ -174,7 +174,7 @@ export default {
   projects: {
     hero: {
       title: "Projets",
-      subtitle: "Découvrez mes réalisations en développement logiciel et data science",
+      subtitle: "Découvrez mes réalisations en développement logiciel, data science et automatisation",
     },
     list: [
       {
