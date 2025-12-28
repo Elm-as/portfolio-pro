@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { Mail, Briefcase, Send, MapPin } from 'lucide-react'
+import { Mail, Briefcase, Send, MapPin, Phone } from 'lucide-react'
 
 interface ContactClientProps {
   dict: any
@@ -76,38 +76,40 @@ export default function ContactClient({ dict, lang }: ContactClientProps) {
               </p>
 
               <div className="space-y-6">
-                {/* Project Email */}
-                <div className="flex items-start">
-                  <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center text-primary mr-4 flex-shrink-0">
-                    <Briefcase size={24} />
+                {/* Phone */}
+                {dict.contact.info.phone && (
+                  <div className="flex items-start">
+                    <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center text-primary mr-4 flex-shrink-0">
+                      <Phone size={24} />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold mb-1">
+                        {lang === 'fr' ? 'Téléphone' : 'Phone'}
+                      </h3>
+                      <a 
+                        href={`tel:${dict.contact.info.phone}`}
+                        className="text-primary hover:underline"
+                      >
+                        {dict.contact.info.phone}
+                      </a>
+                    </div>
                   </div>
-                  <div>
-                    <h3 className="font-semibold mb-1">
-                      {lang === 'fr' ? 'Demandes de projet' : 'Project requests'}
-                    </h3>
-                    <a 
-                      href={`mailto:${dict.contact.info.emails.project}`}
-                      className="text-primary hover:underline"
-                    >
-                      {dict.contact.info.emails.project}
-                    </a>
-                  </div>
-                </div>
+                )}
 
-                {/* Job Email */}
+                {/* Email */}
                 <div className="flex items-start">
                   <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center text-primary mr-4 flex-shrink-0">
                     <Mail size={24} />
                   </div>
                   <div>
                     <h3 className="font-semibold mb-1">
-                      {lang === 'fr' ? 'Opportunités professionnelles' : 'Job opportunities'}
+                      {lang === 'fr' ? 'Email' : 'Email'}
                     </h3>
                     <a 
-                      href={`mailto:${dict.contact.info.emails.job}`}
+                      href={`mailto:${dict.contact.info.email || dict.contact.info.emails.project}`}
                       className="text-primary hover:underline"
                     >
-                      {dict.contact.info.emails.job}
+                      {dict.contact.info.email || dict.contact.info.emails.project}
                     </a>
                   </div>
                 </div>
@@ -122,7 +124,7 @@ export default function ContactClient({ dict, lang }: ContactClientProps) {
                       {lang === 'fr' ? 'Localisation' : 'Location'}
                     </h3>
                     <p className="text-muted-foreground">
-                      {lang === 'fr' ? 'Côte d\'Ivoire' : 'Ivory Coast'}
+                      {dict.contact.info.location || (lang === 'fr' ? 'Côte d\'Ivoire' : 'Ivory Coast')}
                     </p>
                   </div>
                 </div>

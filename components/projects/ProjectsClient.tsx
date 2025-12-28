@@ -1,10 +1,33 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { Lightbulb, AlertCircle, Wrench, TrendingUp, CheckCircle } from 'lucide-react'
+import { Lightbulb, AlertCircle, Wrench, TrendingUp, CheckCircle, ExternalLink } from 'lucide-react'
+
+interface Project {
+  title: string
+  context: string
+  problem: string
+  solution: string
+  tools: string[]
+  method: string
+  result: string
+  link?: string
+  status?: string
+  period?: string
+}
+
+interface ProjectsDict {
+  hero: {
+    title: string
+    subtitle: string
+  }
+  list: Project[]
+}
 
 interface ProjectsClientProps {
-  dict: any
+  dict: {
+    projects: ProjectsDict
+  }
   lang: string
 }
 
@@ -33,7 +56,7 @@ export default function ProjectsClient({ dict, lang }: ProjectsClientProps) {
       <section className="py-20 bg-background">
         <div className="container-custom">
           <div className="space-y-12">
-            {dict.projects.list.map((project: any, index: number) => (
+            {dict.projects.list.map((project: Project, index: number) => (
               <motion.div
                 key={project.title}
                 initial={{ opacity: 0, y: 20 }}
@@ -42,9 +65,36 @@ export default function ProjectsClient({ dict, lang }: ProjectsClientProps) {
                 transition={{ delay: index * 0.1 }}
                 className="p-8 rounded-2xl border bg-card hover:shadow-2xl transition-all"
               >
-                <h2 className="text-3xl font-display font-bold mb-6">
-                  {project.title}
-                </h2>
+                <div className="flex items-start justify-between mb-6">
+                  <div>
+                    <h2 className="text-3xl font-display font-bold">
+                      {project.title}
+                    </h2>
+                    {project.period && (
+                      <p className="text-sm text-muted-foreground mt-1">
+                        {project.period}
+                      </p>
+                    )}
+                  </div>
+                  <div className="flex items-center gap-3">
+                    {project.status && (
+                      <span className="px-3 py-1 text-sm font-medium rounded-full bg-blue-100 text-blue-700 whitespace-nowrap">
+                        {project.status}
+                      </span>
+                    )}
+                    {project.link && (
+                      <a
+                        href={project.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-1 px-3 py-1 text-sm font-medium rounded-lg bg-primary text-white hover:bg-primary/90 transition-colors"
+                      >
+                        <span>{lang === 'fr' ? 'Voir' : 'View'}</span>
+                        <ExternalLink size={14} />
+                      </a>
+                    )}
+                  </div>
+                </div>
 
                 <div className="grid md:grid-cols-2 gap-8 mb-6">
                   {/* Context */}

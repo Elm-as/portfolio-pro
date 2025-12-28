@@ -52,6 +52,17 @@ export default function AboutClient({ dict, lang }: AboutClientProps) {
               <p className="text-lg text-muted-foreground leading-relaxed">
                 {dict.about.background.description}
               </p>
+              
+              {dict.about.background.objective && (
+                <div className="mt-6 p-4 rounded-lg bg-blue-50 border border-blue-200">
+                  <p className="text-sm font-semibold text-blue-900 mb-2">
+                    {lang === 'fr' ? 'Objectif' : 'Objective'}
+                  </p>
+                  <p className="text-blue-800">
+                    {dict.about.background.objective}
+                  </p>
+                </div>
+              )}
             </motion.div>
 
             <motion.div
@@ -161,6 +172,93 @@ export default function AboutClient({ dict, lang }: AboutClientProps) {
           </div>
         </div>
       </section>
+
+      {/* Skills Section */}
+      {dict.about.skills && (
+        <section className="py-20 bg-muted/30">
+          <div className="container-custom">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-center mb-12"
+            >
+              <h2 className="text-3xl md:text-4xl font-display font-bold mb-4">
+                {dict.about.skills.title}
+              </h2>
+            </motion.div>
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
+              {dict.about.skills.categories.map((category: any, index: number) => (
+                <motion.div
+                  key={category.title}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1 }}
+                  className="p-6 rounded-xl border bg-card"
+                >
+                  <h3 className="font-display font-semibold mb-4 text-primary">
+                    {category.title}
+                  </h3>
+                  <ul className="space-y-2">
+                    {category.items.map((item: string) => (
+                      <li key={item} className="text-sm text-muted-foreground">
+                        • {item}
+                      </li>
+                    ))}
+                  </ul>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Experience Section */}
+      {dict.about.experience && (
+        <section className="py-20 bg-background">
+          <div className="container-custom">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-center mb-12"
+            >
+              <h2 className="text-3xl md:text-4xl font-display font-bold mb-4">
+                {dict.about.experience.title}
+              </h2>
+            </motion.div>
+
+            <div className="max-w-3xl mx-auto">
+              <div className="space-y-6">
+                {dict.about.experience.items.map((item: any, index: number) => (
+                  <motion.div
+                    key={item.title}
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: index * 0.1 }}
+                    className="p-6 rounded-xl border bg-card"
+                  >
+                    <div className="flex justify-between items-start mb-2">
+                      <h3 className="text-xl font-display font-semibold">
+                        {item.title}
+                      </h3>
+                      <span className="text-sm text-primary font-medium">
+                        {item.year}
+                      </span>
+                    </div>
+                    <p className="text-muted-foreground">
+                      {item.description}
+                    </p>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* CTA Section */}
       <section className="py-20 bg-gradient-to-br from-primary to-blue-600 text-primary-foreground">
